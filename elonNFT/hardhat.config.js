@@ -1,7 +1,8 @@
-require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-ethers");
+require("@nomiclabs/hardhat-etherscan");
 require('dotenv').config();
 
-const {API_URL_KEY, PRIVATE_KEY} = process.env;
+const {API_URL_KEY, PRIVATE_KEY, POLYGON_API_URL_KEY, API_KEY} = process.env;
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -25,8 +26,17 @@ module.exports = {
   networks: {
     hardhat: {},
     rinkeby: {
-        url: API_URL_KEY,
-        accounts: [`${PRIVATE_KEY}`]
-    }
+      url: API_URL_KEY,
+      accounts: [`0x${PRIVATE_KEY}`],
+      gasPrice: 3000000000,
+    },
+    matic: {
+      url: POLYGON_API_URL_KEY,
+      accounts: [`0x${PRIVATE_KEY}`],
+      gasPrice: 27000000000,
+    },
+  },
+  etherscan: {
+    apiKey: API_KEY
   }
 };
